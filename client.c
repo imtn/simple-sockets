@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     memset(&rcvBuf, 0, RCVBUFSIZE);
 
     /* Fill send buffer with account name */
-    snprintf(sndBUF, SNDBUFSIZE, accountName);
+    snprintf(sndBuf, SNDBUFSIZE, accountName);
 
     /* Get the addditional parameters from the command line */
     /*	    FILL IN	*/
@@ -78,10 +78,12 @@ int main(int argc, char *argv[])
 
     /* Receive and print response from the server */
     /*	    FILL IN	 */
-    rcv(clientSock, rcvBuf, RCVBUFSIZE, 0);
+    recv(clientSock, rcvBuf, RCVBUFSIZE, 0);
+    balance = atoi(rcvBuf);
 
     printf("%s\n", accountName);
     printf("Balance is: %i\n", balance);
 
+    close(clientSock);
     return 0;
 }
