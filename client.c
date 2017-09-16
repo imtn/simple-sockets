@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     /*	    FILL IN	 */
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(servPort);
-    serv_addr.sin_addr.s_addr = inet_network(servIP);
+    serv_addr.sin_addr = inet_addr(servIP);
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */

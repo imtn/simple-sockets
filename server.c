@@ -38,15 +38,21 @@ int main(int argc, char *argv[])
 
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
+    serverSock = socket(AF_INET, SOCK_STREAM, 0);
 
     /* Construct local address structure*/
     /*	    FILL IN	*/
+    changeServAddr.sin_family = AF_INET;
+    changeServAddr.sin_port = htons(changeServPort);
+    changeServAddr.sin_addr.s_addr = INADDR_ANY;
 
     /* Bind to local address structure */
     /*	    FILL IN	*/
+    bind(serverSock, (struct sockaddr *) &changeServAddr, sizeof(changeServAddr));
 
     /* Listen for incoming connections */
     /*	    FILL IN	*/
+    listen(serverSock, 32);
 
     /* Loop server forever*/
     while(1)
@@ -54,10 +60,12 @@ int main(int argc, char *argv[])
 
 	/* Accept incoming connection */
 	/*	FILL IN	    */
+  clientSock = accept(clientSock, (struct sockaddr *) &changeClntAddr, sizeof(changeClntAddr));
 
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
 	/*	FILL IN	    */
+  recv(clientSock, nameBuf, BUFSIZE, 0);
 
 	/* Return account balance to client */
 	/*	FILL IN	    */
