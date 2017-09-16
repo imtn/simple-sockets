@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     memset(&rcvBuf, 0, RCVBUFSIZE);
 
     /* Fill send buffer with account name */
-    sprintf(sndBuf, accountName);
+    sprintf(sndBuf, "%ld", accountName);
 
     /* Get the addditional parameters from the command line */
     /*	    FILL IN	*/
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     /*	    FILL IN	 */
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(servPort);
-    serv_addr.sin_addr = inet_addr(servIP);
+    serv_addr.sin_addr.s_addr = inet_addr(servIP);
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
