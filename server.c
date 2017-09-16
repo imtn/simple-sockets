@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 
 	/* Accept incoming connection */
 	/*	FILL IN	    */
-  clientSock = accept(clientSock, (struct sockaddr *) &changeClntAddr, sizeof(changeClntAddr));
+  clientSock = accept(clientSock, (struct sockaddr *) &changeClntAddr, &clntLen);
 
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 	/* Return account balance to client */
 	/*	FILL IN	    */
   memset(&nameBuf, 0, BUFSIZE);
-  sprintf(nameBuf, balance);
+  sprintf(nameBuf, "%d", balance);
   send(clientSock, nameBuf, BUFSIZE, 0);
 
     }
