@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     memset(&rcvBuf, 0, RCVBUFSIZE);
 
     /* Fill send buffer with account name */
-    snprintf(sndBuf, SNDBUFSIZE, accountName);
+    sprintf(sndBuf, accountName);
 
     /* Get the addditional parameters from the command line */
     /*	    FILL IN	*/

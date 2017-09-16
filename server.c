@@ -35,6 +35,12 @@ int main(int argc, char *argv[])
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
     int  balance;				/* Place to record account balance result */
 
+    /* Account Name: mySavings, myChecking, myRetirement, myCollege  */
+    char sav[] = "mySavings";
+    char chk[] = "myChecking";
+    char rtr[] = "myRetirement";
+    char cll[] = "myCollege";
+
 
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
@@ -66,9 +72,23 @@ int main(int argc, char *argv[])
 	/* Look up account balance, store in balance */
 	/*	FILL IN	    */
   recv(clientSock, nameBuf, BUFSIZE, 0);
+  if (strcmp(nameBuf, sav) == 0) {
+    balance = 10;
+  } else if (strcmp(nameBuf, chk) == 0) {
+    balance = 20;
+  } else if (strcmp(nameBuf, rtr) == 0) {
+    balance = 30;
+  } else if (strcmp(nameBuf, cll) == 0) {
+    balance = 40;
+  } else {
+    //something bad happened
+  }
 
 	/* Return account balance to client */
 	/*	FILL IN	    */
+  memset(&nameBuf, 0, BUFSIZE);
+  sprintf(nameBuf, balance);
+  send(clientSock, nameBuf, BUFSIZE, 0);
 
     }
 
