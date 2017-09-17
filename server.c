@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     struct sockaddr_in changeServAddr;		/* Local address */
     struct sockaddr_in changeClntAddr;		/* Client address */
     unsigned short changeServPort;		/* Server port */
-    unsigned int clntLen;			/* Length of address data struct */
+    unsigned int clntLen = sizeof(changeClntAddr);			/* Length of address data struct */
 
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
     int  balance;				/* Place to record account balance result */
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 
 	/* Accept incoming connection */
 	/*	FILL IN	    */
-  clientSock = accept(clientSock, (struct sockaddr *) &changeClntAddr, &clntLen);
+  clientSock = accept(serverSock, (struct sockaddr *) &changeClntAddr, &clntLen);
 
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
