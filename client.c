@@ -69,11 +69,14 @@ int main(int argc, char *argv[])
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
-    connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    int error = connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
 
     /* Send the string to the server */
     /*	    FILL IN	 */
+    fprintf(stderr, "%s\n", "Top");
+    fprintf(stderr, "%d", error);
     send(clientSock, sndBuf, SNDBUFSIZE, 0);
+    fprintf(stderr, "%s\n", "Bottom");
 
 
     /* Receive and print response from the server */
@@ -85,5 +88,6 @@ int main(int argc, char *argv[])
     printf("Balance is: %i\n", balance);
 
     close(clientSock);
+    printf("Hello!");
     return 0;
 }
