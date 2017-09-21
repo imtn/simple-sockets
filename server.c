@@ -22,7 +22,7 @@
 #define BUFSIZE 40		/* Your name can be as many as 40 chars*/
 
 /* The main function */
-int main(int argc, char *argv[])
+int main(int argc, char *argv[]) //called like ./server ipAddr port
 {
 
     int serverSock;				/* Server Socket */
@@ -40,6 +40,14 @@ int main(int argc, char *argv[])
     char chk[] = "myChecking";
     char rtr[] = "myRetirement";
     char cll[] = "myCollege";
+
+    if (argc != 3)
+    {
+    	printf("Incorrect number of arguments. The correct format is:\n serverIP serverPort");
+    	exit(1);
+    }
+    //servIP = argv[2];
+    changeServPort = (unsigned short)(strtol(argv[2], NULL, 10));
 
 
     /* Create new TCP Socket for incoming requests*/
@@ -63,12 +71,9 @@ int main(int argc, char *argv[])
     while(1)
     {
 
-      fprintf(stderr, "about to enter while loop!");
 	/* Accept incoming connection */
 	/*	FILL IN	    */
   clientSock = accept(serverSock, (struct sockaddr *) &changeClntAddr, &clntLen);
-  fprintf(stderr, "%s\n", "after");
-
 
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
