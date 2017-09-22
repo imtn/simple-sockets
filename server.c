@@ -45,13 +45,17 @@ int main(int argc, char *argv[]) //called like ./server port
     int rtrBal = 3000;
     int cllBal = 4000;
 
+    int savTimeouts[3] = {0,0,0};
+    int chlTimeouts[3] = {0,0,0};
+    int rtrTimeouts[3] = {0,0,0};
+    int cllTimeouts[3] = {0,0,0};
+
     if (argc != 2)
     {
     	printf("Incorrect number of arguments. The correct format is:\n serverPort\n");
     	exit(1);
     }
     changeServPort = (unsigned short)(strtol(argv[1], NULL, 10));
-
 
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
