@@ -41,6 +41,11 @@ int main(int argc, char *argv[]) //called like ./server port
     char rtr[] = "myRetirement";
     char cll[] = "myCollege";
 
+    int savBal = 1000;
+    int chkBal = 2000;
+    int rtrBal = 3000;
+    int cllBal = 4000;
+
     if (argc != 2)
     {
     	printf("Incorrect number of arguments. The correct format is:\n serverPort");
@@ -77,17 +82,36 @@ int main(int argc, char *argv[]) //called like ./server port
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
 	/*	FILL IN	    */
-  recv(clientSock, nameBuf, BUFSIZE, 0);
-  if (strcmp(nameBuf, sav) == 0) {
-    balance = 10;
-  } else if (strcmp(nameBuf, chk) == 0) {
-    balance = 20;
-  } else if (strcmp(nameBuf, rtr) == 0) {
-    balance = 30;
-  } else if (strcmp(nameBuf, cll) == 0) {
-    balance = 40;
+  recv(clientSock, nameBuf, BUFSIZE, 0); //message is "accountName requestType [amount]"
+  char *accountName = strtok(nameBuf, " ");
+  char *requestType = strtok(NULL, " ");
+  int amount;
+  if (strcmp(requestType, "WITHDRAW") == 0) {
+    amount = atoi(strtok(NULL, " "));
+  }
+  if (strcmp(requestType, "BAL") == 0) {
+    if (strcmp(accountName, sav) == 0) {
+      balance = savBal;
+    } else if (strcmp(accountName, chk) == 0) {
+      balance = chkBal;
+    } else if (strcmp(accountName, rtr) == 0) {
+      balance = rtrBal;
+    } else if (strcmp(accountName, cll) == 0) {
+      balance = cllBal;
+    }
+  } else if (strcmp(requestType, "WITHDRAW") == 0) {
+    if (strcmp(accountName, sav) == 0) {
+      balance = savBal;
+    } else if (strcmp(accountName, chk) == 0) {
+      balance = chkBal;
+    } else if (strcmp(accountName, rtr) == 0) {
+      balance = rtrBal;
+    } else if (strcmp(accountName, cll) == 0) {
+      balance = cllBal;
+    }
   } else {
     //something bad happened
+    fprintf(stderror, "if else tree failed");
   }
 
 	/* Return account balance to client */

@@ -38,19 +38,28 @@ int main(int argc, char *argv[])
     char rcvBuf[RCVBUFSIZE];	    /* Receive Buffer */
 
     int balance;		    /* Account balance */
+    char *requestType;
+    char *withdrawAmount;
 
     /* Get the Account Name from the command line */
-    if (argc != 5)
+    if (argc != 5 || argc != 6)
     {
-    	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort requestType");
+    	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort requestType [amount]");
     	exit(1);
     }
     accountName = argv[1];
+    requestType = argv[4];
+
     memset(&sndBuf, 0, SNDBUFSIZE);
     memset(&rcvBuf, 0, RCVBUFSIZE);
 
     /* Fill send buffer with account name */
-    sprintf(sndBuf, "%s", accountName);
+    if (strcmp(requestType, "WITHDRAW" == 0)) {
+      withdrawAmount = argv[5];
+      sprintf(sndBuf, "%s %s %s", accountName, requestType, withdrawAmount);
+    } else {
+      sprintf(sndBuf, "%s %s", accountName, requestType);
+    }
 
     /* Get the addditional parameters from the command line */
     /*	    FILL IN	*/
