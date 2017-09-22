@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     memset(&rcvBuf, 0, RCVBUFSIZE);
 
     /* Fill send buffer with account name */
-    if (strcmp(requestType, "WITHDRAW" == 0)) {
+    if (strcmp(requestType, "WITHDRAW") == 0)) {
       withdrawAmount = argv[5];
       sprintf(sndBuf, "%s %s %s", accountName, requestType, withdrawAmount);
     } else {
