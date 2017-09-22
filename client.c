@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     char *withdrawAmount;
 
     /* Get the Account Name from the command line */
-    if (argc != 5 || argc != 6)
+    if (argc != 5 && argc != 6)
     {
     	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort requestType [amount]");
     	exit(1);
