@@ -22,7 +22,7 @@
 #define BUFSIZE 40		/* Your name can be as many as 40 chars*/
 
 /* The main function */
-int main(int argc, char *argv[]) //called like ./server ipAddr port
+int main(int argc, char *argv[]) //called like ./server port
 {
 
     int serverSock;				/* Server Socket */
@@ -41,13 +41,12 @@ int main(int argc, char *argv[]) //called like ./server ipAddr port
     char rtr[] = "myRetirement";
     char cll[] = "myCollege";
 
-    if (argc != 3)
+    if (argc != 2)
     {
-    	printf("Incorrect number of arguments. The correct format is:\n serverIP serverPort");
+    	printf("Incorrect number of arguments. The correct format is:\n serverPort");
     	exit(1);
     }
-    //servIP = argv[2];
-    changeServPort = (unsigned short)(strtol(argv[2], NULL, 10));
+    changeServPort = (unsigned short)(strtol(argv[1], NULL, 10));
 
 
     /* Create new TCP Socket for incoming requests*/

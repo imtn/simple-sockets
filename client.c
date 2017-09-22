@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
-    int error = connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
 
     /* Send the string to the server */
     /*	    FILL IN	 */
