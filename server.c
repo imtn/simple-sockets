@@ -85,29 +85,29 @@ int main(int argc, char *argv[]) //called like ./server port
   recv(clientSock, nameBuf, BUFSIZE, 0); //message is "accountName requestType [amount]"
   char *accountName = strtok(nameBuf, " ");
   char *requestType = strtok(NULL, " ");
+  char *status;
   int amount;
-  if (strcmp(requestType, "WITHDRAW") == 0) {
-    amount = atoi(strtok(NULL, " "));
+  int *currentBal;
+  if (strcmp(accountName, sav) == 0) {
+    currentBal = &savBal;
+  } else if (strcmp(accountName, chk) == 0) {
+    currentBal = &chkBal;
+  } else if (strcmp(accountName, rtr) == 0) {
+    currentBal = &rtrBal;
+  } else if (strcmp(accountName, cll) == 0) {
+    currentBal = &cllBal;
   }
+
   if (strcmp(requestType, "BAL") == 0) {
-    if (strcmp(accountName, sav) == 0) {
-      balance = savBal;
-    } else if (strcmp(accountName, chk) == 0) {
-      balance = chkBal;
-    } else if (strcmp(accountName, rtr) == 0) {
-      balance = rtrBal;
-    } else if (strcmp(accountName, cll) == 0) {
-      balance = cllBal;
-    }
+    balance = *currentBal;
   } else if (strcmp(requestType, "WITHDRAW") == 0) {
-    if (strcmp(accountName, sav) == 0) {
-      balance = savBal;
-    } else if (strcmp(accountName, chk) == 0) {
-      balance = chkBal;
-    } else if (strcmp(accountName, rtr) == 0) {
-      balance = rtrBal;
-    } else if (strcmp(accountName, cll) == 0) {
-      balance = cllBal;
+    amount = atoi(strtok(NULL, " "));
+    if (amount > *balance) {
+      status = "FAILURE";
+      //failure
+    } else { //enough money for withdrawal
+      *balance = *balance - amount;
+      status = "SUCCESS";
     }
   } else {
     //something bad happened
@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) //called like ./server port
 	/* Return account balance to client */
 	/*	FILL IN	    */
   memset(&nameBuf, 0, BUFSIZE);
-  sprintf(nameBuf, "%d", balance);
+  sprintf(nameBuf, "%d %s", balance, status); //return something that looks like "amount status", where amount is relevant in BAL requests, and status is relevant in WITHDRAW request
   send(clientSock, nameBuf, BUFSIZE, 0);
 
     }
