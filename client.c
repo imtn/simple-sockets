@@ -40,9 +40,9 @@ int main(int argc, char *argv[])
     int balance;		    /* Account balance */
 
     /* Get the Account Name from the command line */
-    if (argc != 4)
+    if (argc != 5)
     {
-    	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort");
+    	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort requestType");
     	exit(1);
     }
     accountName = argv[1];
