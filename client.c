@@ -87,11 +87,27 @@ int main(int argc, char *argv[])
 
     /* Receive and print response from the server */
     /*	    FILL IN	 */
-    recv(clientSock, rcvBuf, RCVBUFSIZE, 0);
-    balance = atoi(rcvBuf);
+    recv(clientSock, rcvBuf, RCVBUFSIZE, 0); //receive amount status
+    balance = atoi(strtok(rcvBuf, " "));
+    char *status = strtok(NULL, " ");
 
-    printf("%s\n", accountName);
-    printf("Balance is: %i\n", balance);
+    if (strcmp(requestType, "BAL") == 0) {
+      printf("%s\n", accountName);
+      printf("Balance is: %i\n", balance);
+    } else if (strcmp(requestType, "WITHDRAW") == 0) {
+      if (strcmp(status, "SUCCESS") == 0) {
+        printf("Withdrawal Successful\n");
+      } else if (strcmp(status, "FAILURE") == 0) {
+        printf("Withdrawal Not Successful");
+      } else {
+        fprintf(stderr, "Unable to decipher withdrawal status");
+        exit(1);
+      }
+    } else {
+      fprintf(stderr, "Unable to detect request type");
+      exit(1);
+    }
+
 
     close(clientSock);
     return 0;

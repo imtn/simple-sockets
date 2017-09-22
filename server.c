@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) //called like ./server port
     }
   } else {
     //something bad happened
-    fprintf(stderror, "if else tree failed");
+    fprintf(stderr, "if else tree failed");
   }
 
 	/* Return account balance to client */
