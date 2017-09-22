@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     /* Get the Account Name from the command line */
     if (argc != 5 && argc != 6)
     {
-    	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort requestType [amount]");
+    	printf("Incorrect number of arguments. The correct format is:\n\taccountName serverIP serverPort requestType [amount]\n");
     	exit(1);
     }
     accountName = argv[1];
@@ -98,13 +98,13 @@ int main(int argc, char *argv[])
       if (strcmp(status, "SUCCESS") == 0) {
         printf("Withdrawal Successful\n");
       } else if (strcmp(status, "FAILURE") == 0) {
-        printf("Withdrawal Not Successful");
+        printf("Withdrawal Not Successful\n");
       } else {
-        fprintf(stderr, "Unable to decipher withdrawal status");
+        fprintf(stderr, "Unable to decipher withdrawal status\n");
         exit(1);
       }
     } else {
-      fprintf(stderr, "Unable to detect request type");
+      fprintf(stderr, "Unable to detect request type\n");
       exit(1);
     }
 

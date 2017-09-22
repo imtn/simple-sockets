@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) //called like ./server port
 
     if (argc != 2)
     {
-    	printf("Incorrect number of arguments. The correct format is:\n serverPort");
+    	printf("Incorrect number of arguments. The correct format is:\n serverPort\n");
     	exit(1);
     }
     changeServPort = (unsigned short)(strtol(argv[1], NULL, 10));
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) //called like ./server port
     }
   } else {
     //something bad happened
-    fprintf(stderr, "if else tree failed");
+    fprintf(stderr, "if else tree failed\n");
   }
 
 	/* Return account balance to client */
