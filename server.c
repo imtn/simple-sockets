@@ -16,10 +16,13 @@
 #include <stdlib.h>	  /* supports all sorts of functionality */
 #include <unistd.h>	  /* for close() */
 #include <string.h>	  /* support any string ops */
+#include <time.h>
 
 #define RCVBUFSIZE 512		/* The receive buffer size */
 #define SNDBUFSIZE 512		/* The send buffer size */
 #define BUFSIZE 40		/* Your name can be as many as 40 chars*/
+
+void push(int (*arr)[3], int *val); //used for pushing a value to a timeout array
 
 /* The main function */
 int main(int argc, char *argv[]) //called like ./server port
@@ -45,10 +48,10 @@ int main(int argc, char *argv[]) //called like ./server port
     int rtrBal = 3000;
     int cllBal = 4000;
 
-    int savTimeouts[3] = {0,0,0};
-    int chlTimeouts[3] = {0,0,0};
-    int rtrTimeouts[3] = {0,0,0};
-    int cllTimeouts[3] = {0,0,0};
+    int savTime[3] = {0,0,0};
+    int chlTime[3] = {0,0,0};
+    int rtrTime[3] = {0,0,0};
+    int cllTime[3] = {0,0,0};
 
     if (argc != 2)
     {
@@ -86,6 +89,7 @@ int main(int argc, char *argv[]) //called like ./server port
 	/* Look up account balance, store in balance */
 	/*	FILL IN	    */
   recv(clientSock, nameBuf, BUFSIZE, 0); //message is "accountName requestType [amount]"
+  int timestamp = time(NULL);
   char *accountName = strtok(nameBuf, " ");
   char *requestType = strtok(NULL, " ");
   char *status = "FNF"; //file not found
@@ -125,4 +129,10 @@ int main(int argc, char *argv[]) //called like ./server port
 
     }
 
+}
+
+void push(int (*arr)[3], int *val) {
+  (*arr)[0] = (*arr)[1];
+  (*arr)[1] = (*arr)[2];
+  (*arr)[2] = *val;
 }
