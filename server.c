@@ -33,7 +33,6 @@ int main(int argc, char *argv[]) //called like ./server port
     unsigned int clntLen = sizeof(changeClntAddr);			/* Length of address data struct */
 
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
-    int  balance;				/* Place to record account balance result */
 
     /* Account Name: mySavings, myChecking, myRetirement, myCollege  */
     char sav[] = "mySavings";
@@ -85,7 +84,7 @@ int main(int argc, char *argv[]) //called like ./server port
   recv(clientSock, nameBuf, BUFSIZE, 0); //message is "accountName requestType [amount]"
   char *accountName = strtok(nameBuf, " ");
   char *requestType = strtok(NULL, " ");
-  char *status;
+  char *status = "FNF"; //file not found
   int amount;
   int *currentBal;
   if (strcmp(accountName, sav) == 0) {
@@ -99,14 +98,14 @@ int main(int argc, char *argv[]) //called like ./server port
   }
 
   if (strcmp(requestType, "BAL") == 0) {
-    balance = *currentBal;
+    //do nothing, currentBal points to balance
   } else if (strcmp(requestType, "WITHDRAW") == 0) {
     amount = atoi(strtok(NULL, " "));
-    if (amount > *balance) {
+    if (amount > *currentBal) {
       status = "FAILURE";
       //failure
     } else { //enough money for withdrawal
-      *balance = *balance - amount;
+      *currentBal = *currentBal - amount;
       status = "SUCCESS";
     }
   } else {
@@ -117,7 +116,7 @@ int main(int argc, char *argv[]) //called like ./server port
 	/* Return account balance to client */
 	/*	FILL IN	    */
   memset(&nameBuf, 0, BUFSIZE);
-  sprintf(nameBuf, "%d %s", balance, status); //return something that looks like "amount status", where amount is relevant in BAL requests, and status is relevant in WITHDRAW request
+  sprintf(nameBuf, "%d %s", *currentBal, status); //return something that looks like "amount status", where amount is relevant in BAL requests, and status is relevant in WITHDRAW request
   send(clientSock, nameBuf, BUFSIZE, 0);
 
     }
