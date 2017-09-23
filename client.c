@@ -99,6 +99,8 @@ int main(int argc, char *argv[])
         printf("Withdrawal Successful\n");
       } else if (strcmp(status, "FAILURE") == 0) {
         printf("Withdrawal Not Successful\n");
+      } else if (strcmp(status, "TIMEOUT") == 0) {
+        printf("Error: Account Timed Out!\n");
       } else {
         fprintf(stderr, "Unable to decipher withdrawal status\n");
         exit(1);

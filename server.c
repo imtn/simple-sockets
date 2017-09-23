@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) //called like ./server port
     int cllBal = 4000;
 
     int savTime[3] = {0,0,0};
-    int chlTime[3] = {0,0,0};
+    int chkTime[3] = {0,0,0};
     int rtrTime[3] = {0,0,0};
     int cllTime[3] = {0,0,0};
 
@@ -95,27 +95,36 @@ int main(int argc, char *argv[]) //called like ./server port
   char *status = "FNF"; //file not found
   int amount;
   int *currentBal;
+  int (*currentTimeArr)[3];
   if (strcmp(accountName, sav) == 0) {
     currentBal = &savBal;
+    currentTimeArr = &savTime;
   } else if (strcmp(accountName, chk) == 0) {
     currentBal = &chkBal;
+    currentTimeArr = &chkTime;
   } else if (strcmp(accountName, rtr) == 0) {
     currentBal = &rtrBal;
+    currentTimeArr = &rtrTime;
   } else if (strcmp(accountName, cll) == 0) {
     currentBal = &cllBal;
+    currentTimeArr = &cllTime;
   }
 
   if (strcmp(requestType, "BAL") == 0) {
     //do nothing, currentBal points to balance
   } else if (strcmp(requestType, "WITHDRAW") == 0) {
     amount = atoi(strtok(NULL, " "));
-    if (amount > *currentBal) {
+    if ((*currentTimeArr)[0] != 0 && timestamp-(*currentTimeArr)[0]<=60) {
+      status = "TIMEOUT";
+    }
+    else if (amount > *currentBal) {
       status = "FAILURE";
       //failure
     } else { //enough money for withdrawal
       *currentBal = *currentBal - amount;
       status = "SUCCESS";
     }
+    push(currentTimeArr, &timestamp);
   } else {
     //something bad happened
     fprintf(stderr, "if else tree failed\n");
