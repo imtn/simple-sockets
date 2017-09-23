@@ -1,0 +1,38 @@
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 1000
+$ ./client mySavings 127.0.0.1 5000 WITHDRAW 5
+    Withdrawal Successful
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 995
+$ ./client mySavings 127.0.0.1 5000 WITHDRAW 1000
+    Withdrawal Not Successful
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 995
+$ ./client mySavings 127.0.0.1 5000 WITHDRAW 5
+    Withdrawal Successful
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 990
+$ ./client mySavings 127.0.0.1 5000 WITHDRAW 5
+    Error: Account Timed Out!
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 990
+$ ./client mySavings 127.0.0.1 5000 WITHDRAW 5
+    Error: Account Timed Out!
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 990
+$ ./client myChecking 127.0.0.1 5000 BAL
+    myChecking
+    Balance is: 2000
+$ ./client mySavings 127.0.0.1 5000 BAL
+    mySavings
+    Balance is: 990
+$ ./client myChecking 127.0.0.1 5000 WITHDRAW 5
+    Withdrawal Successful
+$ ./client mySavings 127.0.0.1 5000 WITHDRAW 5
+    Error: Account Timed Out!
